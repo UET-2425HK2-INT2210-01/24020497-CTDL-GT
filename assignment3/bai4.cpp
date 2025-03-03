@@ -14,7 +14,7 @@ public:
 class Queue {
 public:
     Linkedlist list;
-    void enqueue(int value){
+    void enqueue(int value) {
         node* newnode = new node();
         newnode->data = value;
         if (list.head == nullptr) {
@@ -22,7 +22,7 @@ public:
         }
         else {
             node* temp = list.head;
-            while (temp->next ==nullptr) {
+            while (temp->next == nullptr) {
                 temp = temp->next;
             }
             temp->next = newnode;
@@ -34,14 +34,14 @@ public:
             return;
         }
         else {
-            node*temp = head;
-            head = temp->next;
+            node* temp = list.head;
+            list.head = temp->next;
             delete temp;
             list.len--;
         }
     }
     void print() {
-        node* p = head;
+        node* p = list.head;
         while (p != nullptr) {
             cout << p->data << " ";
             p = p->next;
@@ -53,7 +53,7 @@ int main() {
     int t;
     cin >> t;
     string s;
-    queue q;
+    Queue q;
     while (t--) {
         cin >> s;
         if (s == "enqueue") {
