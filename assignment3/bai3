@@ -1,0 +1,30 @@
+
+BEGIN 
+DEFINE CLASS Queue
+DECLARE arr AS ARRAY
+DECLARE size ,capital ,front AS INTERGER
+     FUNCTION Queue(qSize)
+            SET size = 0
+            SET front = 0
+            SET capacity = qSize
+            RESIZE arr TO qSize
+        END FUNCTION
+
+        FUNCTION enqueue(x)
+            IF size == capacity THEN
+                RETURN  // Hàng đợi đầy, không thể thêm phần tử
+            END IF
+            SET arr[size] = x
+            INCREMENT size
+        END FUNCTION
+
+        FUNCTION dequeue()
+            IF size == 0 THEN
+                RETURN  // Hàng đợi rỗng, không thể xóa
+            END IF
+            FOR i FROM 1 TO size-1 DO
+                SET arr[i-1] = arr[i]  // Dịch các phần tử lên
+            END FOR
+            DECREMENT size
+        END FUNCTION
+    END CLASS
