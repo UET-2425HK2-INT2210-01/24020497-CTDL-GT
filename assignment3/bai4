@@ -1,0 +1,59 @@
+
+BEGIN
+DEFINE STRUCT node
+DECLARE data AS INTEGER
+DECLARE next AS POINTER TO node
+END STRUCT
+
+DEFINE CLASS Linkedlist
+DECLARE head AS node
+DECLARE len AS INTEGER 
+FUNCTION Linkedlist()
+SET head=NULL
+    SET len=0
+    END FUNCTION
+    END CLASS
+
+DEFINE CLASS Queue
+    DECLARE List AS Linkedlist
+    FUNCTION enqueue(value)
+       CREATE newnode AS node
+        SET newnode.data=value
+        IF list.head IS NULL THEN
+           SET list.head=newnode
+      ELSE 
+       SET temp=list.head
+       WHILE temp.next IS NOT NULL DO
+           SET temp=temp.next
+       END WHILE
+    SET temp.next=newnode
+    END IF
+    INCREMENT list.len
+    END FUNCTION
+      FUNCTION dequeue()
+ IF list.head IS NULL THEN
+    RETURN
+    ELSE
+    SET temp=list.head
+      SET list.head = temp.next
+            DELETE temp
+            DECREMENT list.len
+        END FUNCTION
+
+        FUNCTION print()
+            SET p = list.head
+            WHILE p IS NOT NULL DO
+                PRINT p.data
+                SET p = p.next
+            END WHILE
+        END FUNCTION
+    END CLASS
+    
+
+
+
+
+
+
+    
+    
