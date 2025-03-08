@@ -1,55 +1,50 @@
-#include <iostream>
-using namespace std;
-class Stack {
-private:
-    int* a;
-    int size;
-public:
-    Stack() {
-        a = nullptr;
-        size = 0;
-    }
-    void push(int value) {
-        int* newArray = new int[size + 1];
-        for (int i = 0; i < size; i++) {
-            newArray[i] = a[i];
-        }
-        newArray[size] = value;
-        size++;
-        delete[] a;
-        a = newArray;
-    }
-    void pop() {
-        int* newArray = new int[size - 1];
-        for (int i = 0; i < size - 1; i++) {
-            newArray[i] = a[i];
-        }
-        size--;
-        delete[] a;
-        a = newArray;
-    }
-    void print() {
-        for (int i = 0; i < size; i++) {
-            cout << a[i];
-        }
-    }
-};
+CLASS Stack:
+    PRIVATE:
+        ARRAY a
+        INTEGER size
 
-int main() {
-    int t;
-    cin >> t;
-    string s;
-    Stack q;
-    while (t--) {
-        cin >> s;
-        if (s == "push") {
-            int n;
-            cin >> n;
-            q.push(n);
-        }
-        else if (s == "pop") {
-            q.pop();
-        }
-    }
-    q.print();
-}
+    CONSTRUCTOR Stack():
+        a ← NULL
+        size ← 0
+
+    METHOD push(value):
+        CREATE newArray[size + 1]
+        FOR i FROM 0 TO size - 1:
+            newArray[i] ← a[i]
+        END FOR
+        newArray[size] ← value
+        size ← size + 1
+        DELETE a
+        a ← newArray
+
+    METHOD pop():
+        IF size = 0 THEN RETURN  // Tránh lỗi khi pop stack rỗng
+        CREATE newArray[size - 1]
+        FOR i FROM 0 TO size - 2:
+            newArray[i] ← a[i]
+        END FOR
+        size ← size - 1
+        DELETE a
+        a ← newArray
+
+    METHOD print():
+        FOR i FROM 0 TO size - 1:
+            PRINT a[i] WITHOUT NEWLINE
+        END FOR
+        PRINT NEWLINE
+
+// MAIN PROGRAM
+READ t
+Stack q
+WHILE t > 0:
+    READ s
+    IF s = "push" THEN
+        READ n
+        q.push(n)
+    ELSE IF s = "pop" THEN
+        q.pop()
+    END IF
+    t ← t - 1
+END WHILE
+q.print()
+
