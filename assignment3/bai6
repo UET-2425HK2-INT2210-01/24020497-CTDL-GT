@@ -1,0 +1,69 @@
+STRUCT Node:
+    INTEGER data
+    POINTER next
+
+CLASS Linkedlist:
+    PUBLIC:
+        POINTER head
+        INTEGER len
+    CONSTRUCTOR Linkedlist():
+        head ← NULL
+        len ← 0
+
+CLASS Stack:
+    PUBLIC:
+        Linkedlist list
+
+    METHOD push(value):
+        CREATE newNode
+        newNode.data ← value
+        newNode.next ← NULL
+
+        IF list.head = NULL THEN
+            list.head ← newNode
+        ELSE
+            POINTER temp ← list.head
+            WHILE temp.next ≠ NULL:
+                temp ← temp.next
+            END WHILE
+            temp.next ← newNode
+        END IF
+        list.len ← list.len + 1
+
+    METHOD pop():
+        IF list.head = NULL THEN RETURN // Tránh lỗi pop stack rỗng
+        IF list.head.next = NULL THEN
+            DELETE list.head
+            list.head ← NULL
+        ELSE
+            POINTER temp ← list.head
+            WHILE temp.next.next ≠ NULL:
+                temp ← temp.next
+            END WHILE
+            DELETE temp.next
+            temp.next ← NULL
+        END IF
+        list.len ← list.len - 1
+
+    METHOD print():
+        POINTER p ← list.head
+        WHILE p ≠ NULL:
+            PRINT p.data, " "
+            p ← p.next
+        END WHILE
+        PRINT NEWLINE
+
+// MAIN PROGRAM
+READ t
+Stack q
+WHILE t > 0:
+    READ s
+    IF s = "push" THEN
+        READ n
+        q.push(n)
+    ELSE IF s = "pop" THEN
+        q.pop()
+    END IF
+    t ← t - 1
+END WHILE
+q.print()
