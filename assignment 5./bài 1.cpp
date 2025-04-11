@@ -89,7 +89,7 @@ public:
     void inorder(node* root) {
         if (root == nullptr) return;
 
-        if (root->firstchildren) inorder(root->firstchildren); // Duyệt từ con bên trái
+         inorder(root->firstchildren); // Duyệt từ con bên trái
         cout << root->data << " ";  
 
         if (root->firstchildren && root->firstchildren->nextsibling) {
