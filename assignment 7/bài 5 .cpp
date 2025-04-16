@@ -7,7 +7,7 @@ int main() {
     cin >> n;
 
     vector<int> a(n), c(n, 0); // mảng c là bộ đếm (control array)
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {//Gán phần tử của hoán vị đầu tiên
         a[i] = i + 1;
     }
 
@@ -15,13 +15,13 @@ int main() {
     for (int x : a) cout << x << " ";
     cout << endl;
 
-    int i = 0;
+    int i = 0;//gán i=0
     while (i < n) {
-        if (c[i] < i) {
-            if (i % 2 == 0) {
-                swap(a[0], a[i]);
-            } else {
-                swap(a[c[i]], a[i]);
+        if (c[i] < i) {//Trường hợp c[i]<i
+            if (i % 2 == 0) {//Nếu số chẵn 
+                swap(a[0], a[i]);//Đổi chỗ
+            } else {//Nếu số lẻ
+                swap(a[c[i]], a[i]);//Đổi chỗ
             }
 
             // In hoán vị tiếp theo
@@ -30,7 +30,7 @@ int main() {
 
             c[i]++;
             i = 0;
-        } else {
+        } else {//Trường hợp c[i]>1
             c[i] = 0;
             i++;
         }
@@ -38,3 +38,13 @@ int main() {
 
     return 0;
 }
+/*
+n=3
+hoán vị đầu  a =1 2 3
+             c= 0 0 0
+    Bước 1:i=0,c[i]=0
+    ->i++   ->i=1;
+Bước 2 i=1,c[i]=0;
+->c[i]<i   ->đổi chỗ 2 1 3
+    c[1]++;*/
+    
