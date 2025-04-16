@@ -1,10 +1,10 @@
 #include <iostream>
 using namespace std;
-int gcd(int a, int b) {
-    while (b != 0) {
-        int temp = a % b;
-        a = b;
-        b = temp;
+int gcd(int a, int b) {//Hàm geatest common devisor
+    while (b != 0) {// Vòng lặp
+        int temp = a % b;//Khai báo biến temp là số dư của a chia cho b
+        a = b;//Gán a bằng b
+        b = temp;//Gán b bằng temp
     }
     return a;
 }
