@@ -1,15 +1,15 @@
 int main() {
-    int m, n;
-    cin >> m >> n;
+    int m, n;//Khai báo số hàng số cột
+    cin >> m >> n;//Input
 
-    vector<vector<int>> A(m, vector<int>(n));
-    vector<vector<int>> prefix(m, vector<int>(n, 0));
+    vector<vector<int>> A(m, vector<int>(n));//Khai báo ma trận đầu vào
+    vector<vector<int>> prefix(m, vector<int>(n, 0));//Khai báo ma trận preflix sum
 
     // Nhập ma trận và tính prefix theo hàng
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
-            cin >> A[i][j];
-            prefix[i][j] = A[i][j] + (j > 0 ? prefix[i][j - 1] : 0);
+            cin >> A[i][j];//Input ma trận đầu vào
+            prefix[i][j] = A[i][j] + (j > 0 ? prefix[i][j - 1] : 0);//Cách hoạt động của prefix sum (cộng từ số đấu đến số đó )
         }
     }
 
