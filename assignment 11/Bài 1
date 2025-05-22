@@ -1,0 +1,85 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+const int INF = 1e9;  // Giá trị đại diện cho vô cực (không có đường đi)
+
+
+// Hàm Floyd-Warshall để tính đường đi ngắn nhất giữa mọi cặp đỉnh
+void fw(vector<vector<int>>& dist, vector<vector<int>>& next, int n) {
+    for (int k = 1; k <= n; k++) {               // Duyệt qua từng đỉnh trung gian k
+        for (int i = 1; i <= n; i++) {           // Duyệt đỉnh xuất phát i
+            for (int j = 1; j <= n; j++) {       // Duyệt đỉnh đích j
+                // Nếu tồn tại đường đi từ i -> k và k -> j
+                if (dist[i][k] < INF && dist[k][j] < INF) {
+                    // Nếu đường đi i -> j qua k ngắn hơn đường đi hiện tại
+                    if (dist[i][j] > dist[i][k] + dist[k][j]) {
+                        dist[i][j] = dist[i][k] + dist[k][j];   // Cập nhật khoảng cách
+                        next[i][j] = next[i][k];                // Cập nhật đỉnh kế tiếp để truy vết đường đi
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// Hàm để in đường đi ngắn nhất từ s đến e
+void path(const vector<vector<int>>& dist, const vector<vector<int>>& next, int s, int e) {
+    if (next[s][e] == -1) {               // Nếu không tồn tại đường đi từ s đến e
+        cout << "INF\n";
+        cout << "No path\n";
+        return;
+    }
+
+    cout << dist[s][e] << endl;           // In shortest path
+    vector<int> path;
+    int u = s;
+    while (u != e) {                      // Truy vết đường đi theo mảng next
+        path.push_back(u);
+        u = next[u][e];
+    }
+    path.push_back(e);                   // Thêm đỉnh đích
+
+    for (int city : path)                // In đường đi
+        cout << city << " ";
+    cout << endl;
+}
+
+
+int main() {
+    int n, m, s, e;
+    cin >> n >> m >> s >> e; // Nhập số đỉnh, số cạnh, đỉnh bắt đầu, đỉnh kết thúc
+
+    // Khởi tạo ma trận khoảng cách và mảng next
+    vector<vector<int>> dist(n + 1, vector<int>(n + 1, INF));
+    vector<vector<int>> next(n + 1, vector<int>(n + 1, -1));
+
+    // Khoảng cách từ 1 đỉnh đến chính nó là 0
+    for (int i = 1; i <= n; ++i)
+        dist[i][i] = 0;
+
+    // Nhập m cạnh: u đến v có độ bẩn d
+    for (int i = 0; i < m; ++i) {
+        int u, v, d;
+        cin >> u >> v >> d;
+        dist[u][v] = d;       // Gán khoảng cách từ u đến v
+        next[u][v] = v;       // Khởi tạo đỉnh tiếp theo để dựng đường đi
+    }
+
+    fw(dist, next, n);        // Tính khoảng cách ngắn nhất bằng Floyd-Warshall
+    path(dist, next, s, e);   // In đường đi và chi phí từ s đến e
+
+    // In ma trận kết quả khoảng cách giữa mọi cặp đỉnh
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            if (dist[i][j] == INF)
+                cout << "INF ";
+            else
+                cout << dist[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
